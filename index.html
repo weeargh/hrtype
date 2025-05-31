@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Kind of HR Manager Are You?</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="welcome-container">
+        <h1>What Kind of HR Manager Are You?</h1>
+        <p>Discover your inner HR archetype in a series of fun and insightful questions.</p>
+        <button id="start-quiz-btn">Start Quiz</button>
+    </div>
+
+    <div id="quiz-container" style="display:none;"> 
+        <div id="progress-bar-container">
+            <div id="progress-bar"></div>
+            <span id="progress-text"></span>
+        </div>
+        <div id="question-area">
+            <!-- Questions will be loaded here by JavaScript -->
+        </div>
+        <button id="back-btn" style="display:none; margin-right: 10px;">Back</button>
+    </div>
+
+    <div id="results-container" style="display:none;">
+        <!-- <h2>Your HR Archetype Result</h2> -->
+        <div class="charts-container">
+            <div class="chart-wrapper">
+                <!-- <h3>Archetype Distribution (Radar Chart)</h3> -->
+                <canvas id="radarChart"></canvas>
+            </div>
+            <div class="result-card">
+                <div id="dominant-archetype">
+                    <!-- Dominant archetype and description will be shown here -->
+                </div>
+                <button class="linkedin-share-btn" id="linkedin-share-btn">Share on LinkedIn</button>
+            </div>
+        </div>
+        <button id="restart-btn">Take Quiz Again</button>
+    </div>
+
+    <script src="script.js"></script>
+    <!-- We'll add a charting library later, e.g., Chart.js -->
+</body>
+</html> 

@@ -1,0 +1,21 @@
+openapi: 3.0.0
+info:
+  title: HR Archetype Quiz API
+  version: v1
+  description: API for the 'What Kind of HR Manager Are You?' quiz.
+
+# (Further API details to be added if/when an API is developed)
+# For example:
+# paths:
+#   /questions:
+#     get:
+#       summary: Retrieve a list of quiz questions
+#       responses:
+#         '200':
+#           description: A list of questions.
+#   /submit_answers:
+#     post:
+#       summary: Submit answers and get archetype results
+#       responses:
+#         '200':
+#           description: Archetype results and scores. 

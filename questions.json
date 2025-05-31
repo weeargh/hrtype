@@ -1,0 +1,258 @@
+[
+  {
+    "id": "q1",
+    "type": "hr_scenario",
+    "text": "A department missed its hiring target. What do you do first?",
+    "options": [
+      "Dive into the data like a shark on a spreadsheet",
+      "Pull up a Gantt chart, color-coded of course",
+      "Set up a group hug (fine, a retro session)",
+      "Check what policy they violated this time"
+    ],
+    "mapping": {
+      "Dive into the data like a shark on a spreadsheet": { "1": 10, "2": 0, "3": 4, "4": 1, "5": 0, "6": 2 },
+      "Pull up a Gantt chart, color-coded of course": { "1": 4, "2": 0, "3": 0, "4": 0, "5": 1, "6": 10 },
+      "Set up a group hug (fine, a retro session)": { "1": 1, "2": 4, "3": 0, "4": 2, "5": 10, "6": 1 },
+      "Check what policy they violated this time": { "1": 3, "2": 0, "3": 10, "4": 0, "5": 1, "6": 0 }
+    }
+  },
+  {
+    "id": "q2",
+    "type": "hr_scenario",
+    "text": "A top performer resigns. Drama? Nope.",
+    "options": [
+      "Roll out a \"why-are-you-leaving-us\" survey",
+      "Calmly redistribute their tasks and move on",
+      "Document the handover like a control freak",
+      "Rewrite their JD into a future unicorn role"
+    ],
+    "mapping": {
+      "Roll out a \"why-are-you-leaving-us\" survey": { "1": 2, "2": 10, "3": 0, "4": 2, "5": 3, "6": 1 },
+      "Calmly redistribute their tasks and move on": { "1": 0, "2": -1, "3": 0, "4": 0, "5": 0, "6": 10 },
+      "Document the handover like a control freak": { "1": 1, "2": 1, "3": 10, "4": 1, "5": 0, "6": 0 },
+      "Rewrite their JD into a future unicorn role": { "1": 2, "2": 3, "3": 0, "4": 10, "5": 2, "6": 0 }
+    }
+  },
+  {
+    "id": "q3",
+    "type": "hr_scenario",
+    "text": "Your project's delayed. Again.",
+    "options": [
+      "Burn the plan and rebuild it with 5% more ambition",
+      "Set 15-minute daily standups. No one escapes",
+      "Assemble the squad and reignite the fire",
+      "Revise timelines, create a dashboard, impress no one but yourself"
+    ],
+    "mapping": {
+      "Burn the plan and rebuild it with 5% more ambition": { "1": 1, "2": 0, "3": 0, "4": 10, "5": 0, "6": 0 },
+      "Set 15-minute daily standups. No one escapes": { "1": 2, "2": 0, "3": 0, "4": 0, "5": 0, "6": 10 },
+      "Assemble the squad and reignite the fire": { "1": 1, "2": 3, "3": 0, "4": 0, "5": 10, "6": 2 },
+      "Revise timelines, create a dashboard, impress no one but yourself": { "1": 10, "2": 0, "3": 0, "4": 1, "5": 2, "6": 0 }
+    }
+  },
+  {
+    "id": "q4",
+    "type": "hr_scenario",
+    "text": "You're revamping the performance review.",
+    "options": [
+      "Rethink the idea of 'performance' altogether",
+      "Benchmark 10 global best practices, then panic",
+      "Keep it lean, just goals and checkboxes",
+      "Ask managers what actually works – shocking idea"
+    ],
+    "mapping": {
+      "Rethink the idea of 'performance' altogether": { "1": 0, "2": 1, "3": 0, "4": 10, "5": 1, "6": 0 },
+      "Benchmark 10 global best practices, then panic": { "1": 10, "2": 0, "3": 2, "4": 0, "5": 2, "6": 2 },
+      "Keep it lean, just goals and checkboxes": { "1": 2, "2": 0, "3": 0, "4": 0, "5": 1, "6": 10 },
+      "Ask managers what actually works – shocking idea": { "1": 1, "2": 2, "3": 0, "4": 1, "5": 10, "6": 0 }
+    }
+  },
+  {
+    "id": "q5",
+    "type": "hr_scenario",
+    "text": "Your CEO wants a new 'people strategy'... by Friday.",
+    "options": [
+      "Frame it around employee wellness and engagement",
+      "Pull up last year's version and tweak the numbers",
+      "Invent something borderline futuristic",
+      "Benchmark five top startups and work backwards"
+    ],
+    "mapping": {
+      "Frame it around employee wellness and engagement": { "1": 1, "2": 10, "3": 0, "4": 0, "5": 3, "6": 1 },
+      "Pull up last year's version and tweak the numbers": { "1": 2, "2": -1, "3": 10, "4": -1, "5": 0, "6": 2 },
+      "Invent something borderline futuristic": { "1": 1, "2": 1, "3": -2, "4": 10, "5": 1, "6": 0 },
+      "Benchmark five top startups and work backwards": { "1": 10, "2": 0, "3": 1, "4": 1, "5": 2, "6": 0 }
+    }
+  },
+  {
+    "id": "q6",
+    "type": "hr_scenario",
+    "text": "The annual engagement survey is... bad.",
+    "options": [
+      "Treat it as a call for reinvention",
+      "Call 3 focus groups and hear people out",
+      "Investigate which policies broke morale",
+      "Spin it into a positive story (with charts)"
+    ],
+    "mapping": {
+      "Treat it as a call for reinvention": { "1": 1, "2": 1, "3": -2, "4": 10, "5": 2, "6": 0 },
+      "Call 3 focus groups and hear people out": { "1": 0, "2": 10, "3": 0, "4": 0, "5": 4, "6": 0 },
+      "Investigate which policies broke morale": { "1": 1, "2": 0, "3": 10, "4": 0, "5": 0, "6": 2 },
+      "Spin it into a positive story (with charts)": { "1": 10, "2": 0, "3": 1, "4": 2, "5": 0, "6": 1 }
+    }
+  },
+  
+  {
+    "id": "q7",
+    "type": "hr_scenario",
+    "text": "A manager says 'HR is slowing us down.'",
+    "options": [
+      "Ask how they're really feeling",
+      "Present a case study proving otherwise",
+      "Say 'Great! Let's rebuild the process together!'",
+      "Remind them what compliance is for"
+    ],
+    "mapping": {
+      "Ask how they're really feeling": { "1": 0, "2": 10, "3": 0, "4": 0, "5": 3, "6": 0 },
+      "Present a case study proving otherwise": { "1": 10, "2": 1, "3": 0, "4": 2, "5": 0, "6": 1 },
+      "Say 'Great! Let's rebuild the process together!'": { "1": 1, "2": 2, "3": 0, "4": 10, "5": 2, "6": 0 },
+      "Remind them what compliance is for": { "1": 1, "2": 0, "3": 10, "4": 0, "5": 0, "6": 1 }
+    }
+  },
+  {
+    "id": "q8",
+    "type": "personality",
+    "text": "What's your ideal weekend activity?",
+    "options": [
+      "Reading future-of-work blogs for fun",
+      "Deep talks with friends over coffee",
+      "Running errands, getting stuff DONE",
+      "Organizing your home like a Kanban board"
+    ],
+    "mapping": {
+      "Reading future-of-work blogs for fun": { "1": 2, "2": 0, "3": 0, "4": 10, "5": 0, "6": 0 },
+      "Deep talks with friends over coffee": { "1": -2, "2": 10, "3": 0, "4": 1, "5": 4, "6": -1 },
+      "Running errands, getting stuff DONE": { "1": 1, "2": -1, "3": 2, "4": 0, "5": 0, "6": 10 },
+      "Organizing your home like a Kanban board": { "1": 10, "2": -2, "3": 4, "4": -1, "5": -1, "6": 2 }
+    }
+  },
+  {
+    "id": "q9",
+    "type": "personality",
+    "text": "Your approach to solving problems?",
+    "options": [
+      "Understand how people feel, then act",
+      "Break the frame, rethink everything",
+      "Find the rule, follow the rule",
+      "Framework first, emotion later"
+    ],
+    "mapping": {
+      "Understand how people feel, then act": { "1": -1, "2": 10, "3": 0, "4": 0, "5": 3, "6": 0 },
+      "Break the frame, rethink everything": { "1": 0, "2": 1, "3": -2, "4": 10, "5": 0, "6": 1 },
+      "Find the rule, follow the rule": { "1": 2, "2": -1, "3": 10, "4": -2, "5": 0, "6": 0 },
+      "Framework first, emotion later": { "1": 10, "2": -2, "3": 3, "4": 2, "5": -1, "6": 1 }
+    }
+  },
+  {
+    "id": "q10",
+    "type": "personality",
+    "text": "In a group project, you usually...",
+    "options": [
+      "Ask wild questions that change direction",
+      "Get everyone excited and included",
+      "Make sure things get delivered",
+      "Create the spreadsheet, color-coded"
+    ],
+    "mapping": {
+      "Ask wild questions that change direction": { "1": 0, "2": 0, "3": -2, "4": 10, "5": 2, "6": 0 },
+      "Get everyone excited and included": { "1": -1, "2": 2, "3": 0, "4": 1, "5": 10, "6": 0 },
+      "Make sure things get delivered": { "1": 2, "2": 0, "3": 0, "4": 0, "5": 1, "6": 10 },
+      "Create the spreadsheet, color-coded": { "1": 10, "2": -1, "3": 2, "4": 0, "5": 0, "6": 1 }
+    }
+  },
+  {
+    "id": "q11",
+    "type": "hr_scenario",
+    "text": "Pick your favorite HR phrase.",
+    "options": [
+      "\"People don't quit jobs, they quit managers.\"",
+      "\"Culture eats strategy for breakfast.\"",
+      "\"We need to be audit-ready.\"",
+      "\"What gets measured gets managed.\""
+    ],
+    "mapping": {
+      "\"People don't quit jobs, they quit managers.\"": { "1": 0, "2": 10, "3": -1, "4": 1, "5": 4, "6": 0 },
+      "\"Culture eats strategy for breakfast.\"": { "1": 2, "2": 1, "3": -1, "4": 10, "5": 3, "6": 0 },
+      "\"We need to be audit-ready.\"": { "1": 3, "2": -1, "3": 10, "4": -1, "5": 0, "6": 1 },
+      "\"What gets measured gets managed.\"": { "1": 10, "2": -1, "3": 1, "4": 1, "5": 0, "6": 1 }
+    }
+  },
+  {
+    "id": "q12",
+    "type": "hr_scenario",
+    "text": "Your role in an emergency meeting.",
+    "options": [
+      "The one sharing live-updated slides",
+      "The one pulling up the incident policy",
+      "The one asking if everyone's okay",
+      "The one saying 'let's use this moment to evolve'"
+    ],
+    "mapping": {
+      "The one sharing live-updated slides": { "1": 10, "2": 0, "3": 1, "4": 0, "5": 0, "6": 2 },
+      "The one pulling up the incident policy": { "1": 2, "2": 0, "3": 10, "4": 0, "5": 0, "6": 0 },
+      "The one asking if everyone's okay": { "1": 0, "2": 10, "3": 0, "4": 0, "5": 2, "6": 0 },
+      "The one saying 'let's use this moment to evolve'": { "1": 0, "2": 1, "3": -2, "4": 10, "5": 2, "6": 0 }
+    }
+  },
+  {
+    "id": "q13",
+    "type": "fun",
+    "text": "You win an award. What's it for?",
+    "options": [
+      "Most emotionally available on Slack",
+      "Culture disrupter of the century",
+      "Policy wizard of the year",
+      "Most likely to solve it in Excel"
+    ],
+    "mapping": {
+      "Most emotionally available on Slack": { "1": 0, "2": 10, "3": 0, "4": 0, "5": 2, "6": 0 },
+      "Culture disrupter of the century": { "1": 0, "2": 0, "3": -2, "4": 10, "5": 3, "6": 0 },
+      "Policy wizard of the year": { "1": 3, "2": -1, "3": 10, "4": 0, "5": 0, "6": 1 },
+      "Most likely to solve it in Excel": { "1": 10, "2": 0, "3": 2, "4": 0, "5": 0, "6": 1 }
+    }
+  },
+  {
+    "id": "q14",
+    "type": "fun",
+    "text": "Choose your ultimate HR sidekick.",
+    "options": [
+      "Giant post-it wall for brainstorming",
+      "Google Sheets",
+      "Therapy dog",
+      "LegalBot3000"
+    ],
+    "mapping": {
+      "Giant post-it wall for brainstorming": { "1": 0, "2": 1, "3": 0, "4": 10, "5": 1, "6": 0 },
+      "Google Sheets": { "1": 10, "2": 0, "3": 1, "4": 0, "5": 0, "6": 2 },
+      "Therapy dog": { "1": 0, "2": 10, "3": -1, "4": 0, "5": 3, "6": 0 },
+      "LegalBot3000": { "1": 2, "2": -1, "3": 10, "4": -1, "5": 0, "6": 0 }
+    }
+  },
+  {
+    "id": "q15",
+    "type": "fun",
+    "text": "You're secretly…",
+    "options": [
+      "Writing a blog post called 'Why HR is Dead'",
+      "Checking in on your team's weekend plans",
+      "Building a Notion wiki of everything",
+      "Reviewing policy templates for fun"
+    ],
+    "mapping": {
+      "Writing a blog post called 'Why HR is Dead'": { "1": 0, "2": 0, "3": -2, "4": 10, "5": 2, "6": 0 },
+      "Checking in on your team's weekend plans": { "1": 0, "2": 10, "3": 0, "4": 1, "5": 3, "6": 0 },
+      "Building a Notion wiki of everything": { "1": 10, "2": -1, "3": 2, "4": 0, "5": 0, "6": 1 },
+      "Reviewing policy templates for fun": { "1": 2, "2": -2, "3": 10, "4": -1, "5": 0, "6": 1 }
+    }
+  }
+]
