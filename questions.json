@@ -9,6 +9,7 @@
       "Set up a group hug (fine, a retro session)",
       "Check what policy they violated this time"
     ],
+    "emojis": ["🦈", "📊", "🤗", "📏"],
     "mapping": {
       "Dive into the data like a shark on a spreadsheet": { "1": 10, "2": 0, "3": 4, "4": 1, "5": 0, "6": 2 },
       "Pull up a Gantt chart, color-coded of course": { "1": 4, "2": 0, "3": 0, "4": 0, "5": 1, "6": 10 },
@@ -26,6 +27,7 @@
       "Document the handover like a control freak",
       "Rewrite their JD into a future unicorn role"
     ],
+    "emojis": ["📋", "🧘", "🗂️", "🦄"],
     "mapping": {
       "Roll out a \"why-are-you-leaving-us\" survey": { "1": 2, "2": 10, "3": 0, "4": 2, "5": 3, "6": 1 },
       "Calmly redistribute their tasks and move on": { "1": 0, "2": -1, "3": 0, "4": 0, "5": 0, "6": 10 },
@@ -43,6 +45,7 @@
       "Assemble the squad and reignite the fire",
       "Revise timelines, create a dashboard, impress no one but yourself"
     ],
+    "emojis": ["🔥", "⏰", "🧑‍🤝‍🧑", "📈"],
     "mapping": {
       "Burn the plan and rebuild it with 5% more ambition": { "1": 1, "2": 0, "3": 0, "4": 10, "5": 0, "6": 0 },
       "Set 15-minute daily standups. No one escapes": { "1": 2, "2": 0, "3": 0, "4": 0, "5": 0, "6": 10 },
@@ -60,6 +63,7 @@
       "Keep it lean, just goals and checkboxes",
       "Ask managers what actually works – shocking idea"
     ],
+    "emojis": ["🔄", "🌍", "📋", "🗣️"],
     "mapping": {
       "Rethink the idea of 'performance' altogether": { "1": 0, "2": 1, "3": 0, "4": 10, "5": 1, "6": 0 },
       "Benchmark 10 global best practices, then panic": { "1": 10, "2": 0, "3": 2, "4": 0, "5": 2, "6": 2 },
@@ -77,6 +81,7 @@
       "Invent something borderline futuristic",
       "Benchmark five top startups and work backwards"
     ],
+    "emojis": ["🌱", "📊", "🦄", "🌍"],
     "mapping": {
       "Frame it around employee wellness and engagement": { "1": 1, "2": 10, "3": 0, "4": 0, "5": 3, "6": 1 },
       "Pull up last year's version and tweak the numbers": { "1": 2, "2": -1, "3": 10, "4": -1, "5": 0, "6": 2 },
@@ -94,6 +99,7 @@
       "Investigate which policies broke morale",
       "Spin it into a positive story (with charts)"
     ],
+    "emojis": ["🌱", "🤗", "📋", "📊"],
     "mapping": {
       "Treat it as a call for reinvention": { "1": 1, "2": 1, "3": -2, "4": 10, "5": 2, "6": 0 },
       "Call 3 focus groups and hear people out": { "1": 0, "2": 10, "3": 0, "4": 0, "5": 4, "6": 0 },
@@ -112,6 +118,7 @@
       "Say 'Great! Let's rebuild the process together!'",
       "Remind them what compliance is for"
     ],
+    "emojis": ["🤗", "📊", "🧑‍🤝‍🧑", "🛡️"],
     "mapping": {
       "Ask how they're really feeling": { "1": 0, "2": 10, "3": 0, "4": 0, "5": 3, "6": 0 },
       "Present a case study proving otherwise": { "1": 10, "2": 1, "3": 0, "4": 2, "5": 0, "6": 1 },
@@ -129,6 +136,7 @@
       "Running errands, getting stuff DONE",
       "Organizing your home like a Kanban board"
     ],
+    "emojis": ["📋", "🧘", "📋", "📊"],
     "mapping": {
       "Reading future-of-work blogs for fun": { "1": 2, "2": 0, "3": 0, "4": 10, "5": 0, "6": 0 },
       "Deep talks with friends over coffee": { "1": -2, "2": 10, "3": 0, "4": 1, "5": 4, "6": -1 },
@@ -146,6 +154,7 @@
       "Find the rule, follow the rule",
       "Framework first, emotion later"
     ],
+    "emojis": ["🤗", "🌱", "📋", "📊"],
     "mapping": {
       "Understand how people feel, then act": { "1": -1, "2": 10, "3": 0, "4": 0, "5": 3, "6": 0 },
       "Break the frame, rethink everything": { "1": 0, "2": 1, "3": -2, "4": 10, "5": 0, "6": 1 },
@@ -163,6 +172,7 @@
       "Make sure things get delivered",
       "Create the spreadsheet, color-coded"
     ],
+    "emojis": ["🌱", "🤗", "📋", "📊"],
     "mapping": {
       "Ask wild questions that change direction": { "1": 0, "2": 0, "3": -2, "4": 10, "5": 2, "6": 0 },
       "Get everyone excited and included": { "1": -1, "2": 2, "3": 0, "4": 1, "5": 10, "6": 0 },
@@ -180,6 +190,7 @@
       "\"We need to be audit-ready.\"",
       "\"What gets measured gets managed.\""
     ],
+    "emojis": ["��", "🌱", "🛡️", "📊"],
     "mapping": {
       "\"People don't quit jobs, they quit managers.\"": { "1": 0, "2": 10, "3": -1, "4": 1, "5": 4, "6": 0 },
       "\"Culture eats strategy for breakfast.\"": { "1": 2, "2": 1, "3": -1, "4": 10, "5": 3, "6": 0 },
@@ -197,6 +208,7 @@
       "The one asking if everyone's okay",
       "The one saying 'let's use this moment to evolve'"
     ],
+    "emojis": ["📊", "📋", "🤗", "🌱"],
     "mapping": {
       "The one sharing live-updated slides": { "1": 10, "2": 0, "3": 1, "4": 0, "5": 0, "6": 2 },
       "The one pulling up the incident policy": { "1": 2, "2": 0, "3": 10, "4": 0, "5": 0, "6": 0 },
@@ -209,13 +221,14 @@
     "type": "fun",
     "text": "You win an award. What's it for?",
     "options": [
-      "Most emotionally available on Slack",
+      "Most emotionally available on Slack/GChat/Whatsapp",
       "Culture disrupter of the century",
       "Policy wizard of the year",
       "Most likely to solve it in Excel"
     ],
+    "emojis": ["📋", "🌱", "🛡️", "📊"],
     "mapping": {
-      "Most emotionally available on Slack": { "1": 0, "2": 10, "3": 0, "4": 0, "5": 2, "6": 0 },
+      "Most emotionally available on Slack/GChat/Whatsapp": { "1": 0, "2": 10, "3": 0, "4": 0, "5": 2, "6": 0 },
       "Culture disrupter of the century": { "1": 0, "2": 0, "3": -2, "4": 10, "5": 3, "6": 0 },
       "Policy wizard of the year": { "1": 3, "2": -1, "3": 10, "4": 0, "5": 0, "6": 1 },
       "Most likely to solve it in Excel": { "1": 10, "2": 0, "3": 2, "4": 0, "5": 0, "6": 1 }
@@ -229,13 +242,14 @@
       "Giant post-it wall for brainstorming",
       "Google Sheets",
       "Therapy dog",
-      "LegalBot3000"
+      "AI LegalBot"
     ],
+    "emojis": ["📋", "📊", "🤗", "🛡️"],
     "mapping": {
       "Giant post-it wall for brainstorming": { "1": 0, "2": 1, "3": 0, "4": 10, "5": 1, "6": 0 },
       "Google Sheets": { "1": 10, "2": 0, "3": 1, "4": 0, "5": 0, "6": 2 },
       "Therapy dog": { "1": 0, "2": 10, "3": -1, "4": 0, "5": 3, "6": 0 },
-      "LegalBot3000": { "1": 2, "2": -1, "3": 10, "4": -1, "5": 0, "6": 0 }
+      "AI LegalBot": { "1": 2, "2": -1, "3": 10, "4": -1, "5": 0, "6": 0 }
     }
   },
   {
@@ -248,6 +262,7 @@
       "Building a Notion wiki of everything",
       "Reviewing policy templates for fun"
     ],
+    "emojis": ["📋", "🤗", "📋", "📊"],
     "mapping": {
       "Writing a blog post called 'Why HR is Dead'": { "1": 0, "2": 0, "3": -2, "4": 10, "5": 2, "6": 0 },
       "Checking in on your team's weekend plans": { "1": 0, "2": 10, "3": 0, "4": 1, "5": 3, "6": 0 },

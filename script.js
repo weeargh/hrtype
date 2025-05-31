@@ -85,6 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
         "The Executor"
     ];
 
+    // Default emojis for answer options (cycle through these)
+    const optionEmojis = ['💼', '📊', '🤝', '🌟'];
+
     if (!startQuizButton) {
         console.error("CRITICAL: Start Quiz Button not found! Check ID in HTML and script.");
         if (welcomeContainer) {
@@ -105,18 +108,23 @@ document.addEventListener('DOMContentLoaded', () => {
     let questions = [];
     let userAnswers = []; // Will store { questionId, selectedOptionText }
 
+    // Add a moving emoji to the progress bar
+    const progressBarEmoji = document.createElement('span');
+    progressBarEmoji.id = 'progress-bar-emoji';
+    progressBarEmoji.textContent = '🧑‍💼';
+    if (progressBarContainer && !document.getElementById('progress-bar-emoji')) {
+        progressBarContainer.appendChild(progressBarEmoji);
+    }
+
     function updateProgressBar() {
         if (!progressBar || !progressText || !progressBarContainer) return; // Elements not found
 
         if (questions.length === 0) {
             progressBar.style.width = '0%';
-            // Show a generic message or hide if questions aren't loaded
             progressText.textContent = '-'; 
-            // progressBarContainer.style.display = 'none'; // Option to hide it
             return;
         }
 
-        // currentQuestionIndex can be equal to questions.length when quiz is complete (on results page)
         const effectiveQuestionIndex = Math.min(currentQuestionIndex, questions.length);
         const progressPercentage = (effectiveQuestionIndex / questions.length) * 100;
 
@@ -129,15 +137,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         progressBar.style.width = `${progressPercentage}%`;
 
+        // Move the emoji along the progress bar
+        if (progressBarEmoji) {
+            // Calculate the width of the progress bar container
+            const barWidth = progressBarContainer.offsetWidth;
+            // Calculate the left position for the emoji
+            const emojiWidth = 32; // px, matches CSS
+            const left = Math.max(0, Math.min(barWidth - emojiWidth, (progressPercentage / 100) * barWidth - emojiWidth / 2));
+            progressBarEmoji.style.left = `${left}px`;
+        }
+
         if (currentQuestionIndex === questions.length) { 
             progressText.textContent = `Quiz Complete!`;
         } else if (currentQuestionIndex < questions.length) {
-            // Display current question as 1-indexed for users
             progressText.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
         } else {
-             progressText.textContent = '-'; // Default/fallback
+             progressText.textContent = '-';
         }
-        progressBarContainer.style.display = 'block'; // Ensure it's visible if previously hidden
+        progressBarContainer.style.display = 'block';
     }
 
     async function loadQuestions() {
@@ -188,11 +205,23 @@ document.addEventListener('DOMContentLoaded', () => {
         optionsDiv.className = 'options';
         const shuffledOptions = [...currentQuestion.options].sort(() => Math.random() - 0.5);
         const previousAnswer = userAnswers[currentQuestionIndex];
-
+        // Use per-question emojis if present, else fallback
+        const emojis = Array.isArray(currentQuestion.emojis) && currentQuestion.emojis.length === 4 ? currentQuestion.emojis : optionEmojis;
         // Create all buttons first
-        const optionButtons = shuffledOptions.map(optionText => {
+        const optionButtons = shuffledOptions.map((optionText, idx) => {
             const button = document.createElement('button');
-            button.textContent = optionText;
+            // Add emoji/icon at the start
+            const emojiSpan = document.createElement('span');
+            emojiSpan.className = 'option-emoji';
+            // Find the index of this option in the original options array to match emoji
+            const origIdx = currentQuestion.options.indexOf(optionText);
+            emojiSpan.textContent = emojis[origIdx >= 0 ? origIdx : idx % emojis.length];
+            button.appendChild(emojiSpan);
+            // Add the option text
+            const textSpan = document.createElement('span');
+            textSpan.className = 'option-text';
+            textSpan.textContent = optionText;
+            button.appendChild(textSpan);
             button.onclick = () => handleAnswerSelection(optionText, currentQuestion.id);
             if (previousAnswer && previousAnswer.selectedOptionText === optionText) {
                 button.classList.add('selected');
@@ -296,49 +325,48 @@ document.addEventListener('DOMContentLoaded', () => {
     function calculateAndDisplayResultsText() {
         let maxScore = -1;
         let dominantTypes = [];
-
-        // Find the maximum score
         for (const type in scores) {
             if (scores[type] > maxScore) {
                 maxScore = scores[type];
             }
         }
-
-        // Find all types that match the maximum score
         for (const type in scores) {
             if (scores[type] === maxScore) {
                 dominantTypes.push(type);
             }
         }
-
         let resultTitle = "";
         let resultDescription = "";
         let resultKeywords = "";
         let resultWeaknesses = "";
         let resultTagline = "";
+        let resultEmoji = "";
         if (dominantTypes.length === 1) {
             const type = dominantTypes[0];
             resultTitle = `${archetypeDetails[type].emoji} You are ${type}`;
-            resultTagline = `<span style='font-size:1.1em;color:#888;'>${archetypeDetails[type].tagline}</span>`;
-            resultDescription = archetypeDetails[type].description;
+            resultTagline = `<div class=\"tagline\">${archetypeDetails[type].tagline}</div>`;
+            let desc = archetypeDetails[type].description;
+            desc = desc.replace(/^You are the? [^(]+\([^)]+\)!?\.?\s*/i, '');
+            resultDescription = desc;
             resultKeywords = archetypeDetails[type].keywords;
             resultWeaknesses = archetypeDetails[type].weaknesses;
         } else if (dominantTypes.length > 1) {
-            const typeNames = dominantTypes.map(t => `${archetypeDetails[t].emoji} ${t}`).join(' / ');
+            // For hybrids, show all emojis and taglines
+            const typeNames = dominantTypes.map(t => `${archetypeDetails[t].emoji} ${t.replace(/^The /, '')}`).join(' / ');
             resultTitle = `Hybrid: You are ${typeNames}`;
-            resultTagline = dominantTypes.map(t => `<span style='font-size:1.1em;color:#888;'>${archetypeDetails[t].tagline}</span>`).join(' / ');
+            resultTagline = dominantTypes.map(t => `<div class=\"tagline\">${archetypeDetails[t].tagline}</div>`).join('');
             resultDescription = "You show a strong blend of qualities from multiple archetypes! This makes you a versatile and adaptable HR professional.";
             dominantTypes.forEach(type => {
-                resultDescription += `<br><br><strong>${type}:</strong> ${archetypeDetails[type].description.substring(0, 100)}...`;
+                let desc = archetypeDetails[type].description;
+                desc = desc.replace(/^You are the? [^(]+\([^)]+\)!?\.?\s*/i, '');
+                resultDescription += `<br><br><strong>${type.replace(/^The /, '')}:</strong> ${desc.substring(0, 100)}...`;
             });
             resultKeywords = dominantTypes.map(t => archetypeDetails[t].keywords).join('; ');
-            resultWeaknesses = dominantTypes.map(t => `<strong>${type}:</strong> ${archetypeDetails[t].weaknesses}`).join('<br>');
+            resultWeaknesses = dominantTypes.map(t => `<strong>${type.replace(/^The /, '')}:</strong> ${archetypeDetails[t].weaknesses}`).join('<br>');
         } else {
-            // Should not happen if scores are calculated
             resultTitle = "Hmm, something went wrong with the scoring.";
             resultDescription = "We couldn't determine your archetype. Please try the quiz again.";
         }
-
         // Identify secondary strengths (within 10 points of maxScore, not dominant)
         let secondaryStrengthsText = "";
         const secondaryTypes = [];
@@ -348,17 +376,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         if (secondaryTypes.length > 0) {
-            secondaryStrengthsText = "<br><br><strong>You also show strong tendencies as:</strong> " + secondaryTypes.map(t => `${archetypeDetails[t].emoji} ${t}`).join(', ') + ".";
+            secondaryStrengthsText = "<br><br><span class='secondary-strengths'><strong>You also show strong tendencies as:</strong> " + secondaryTypes.map(t => `${archetypeDetails[t].emoji} ${t}`).join(', ') + ".</span>";
         }
-
         dominantArchetypeDiv.innerHTML = `
             <h3>${resultTitle}</h3>
-            <div>${resultTagline}</div>
-            <p>${resultDescription}${secondaryStrengthsText}</p>
-            <p style="font-size: 0.9em; color: #555;"><em>Key traits: ${resultKeywords}</em></p>
-            <p style="font-size: 0.9em; color: #b00;"><em>Known weaknesses: ${resultWeaknesses}</em></p>
+            ${resultTagline}
+            <p>${resultDescription}${secondaryStrengthsText ? `<span class='secondary-strengths'>${secondaryStrengthsText}</span>` : ''}</p>
+            <div><span class=\"traits-label\">Key traits:</span><span class=\"traits-content\">${resultKeywords}</span></div>
+            <div><span class=\"weaknesses-label\">Known weaknesses:</span><span class=\"weaknesses-content\">${resultWeaknesses}</span></div>
         `;
-
         console.log("Dominant Types:", dominantTypes, "Max Score:", maxScore);
         console.log("All Scores for Charting:", scores);
     }
@@ -370,10 +396,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const labels = Object.keys(scores);
         const dataValues = Object.values(scores);
+        // Remove 'The ' from archetype labels for the chart
+        const chartLabels = labels.map(label => {
+            let cleanLabel = label.replace(/^The /, '');
+            return `${archetypeDetails[label].emoji} ${cleanLabel}`;
+        });
         radarChartInstance = new Chart(radarChartCanvas, {
             type: 'radar',
             data: {
-                labels: labels.map(label => `${archetypeDetails[label].emoji} ${label}`),
+                labels: chartLabels,
                 datasets: [{
                     label: 'Your Archetype Scores',
                     data: dataValues,
