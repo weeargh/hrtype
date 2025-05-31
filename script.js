@@ -311,67 +311,112 @@ document.addEventListener('DOMContentLoaded', () => {
         resultsContainer.style.display = 'block';
         backButton.style.display = 'none';
         updateProgressBar(); 
-        
         if (questions.length === 0){
             dominantArchetypeDiv.innerHTML = "<h3>Quiz Error</h3><p>Could not display results as no questions were loaded. Please check the setup.</p>";
         } else {
             calculateAndDisplayResultsText();
             renderRadarChart();
-            setupLinkedInShare();
         }
         console.log("All user answers at end:", userAnswers);
     }
 
-    function calculateAndDisplayResultsText() {
-        let maxScore = -1;
-        let dominantTypes = [];
-        for (const type in scores) {
-            if (scores[type] > maxScore) {
-                maxScore = scores[type];
+    function generateHybridBrief(type1, type2) {
+        // Extract the first sentence or main energy from each description
+        const desc1 = archetypeDetails[type1].description;
+        const desc2 = archetypeDetails[type2].description;
+        // Try to extract the main energy/trait from the first sentence
+        const main1 = desc1.split('. ')[0].replace(/^You are the? [^(]+\([^)]+\)!?\s*/i, '').trim();
+        const main2 = desc2.split('. ')[0].replace(/^You are the? [^(]+\([^)]+\)!?\s*/i, '').trim();
+        // Compose a blended brief
+        return `You combine the ${main1.toLowerCase()} of a ${type1.replace(/^The /, '')} with the ${main2.toLowerCase()} of a ${type2.replace(/^The /, '')}. This unique blend allows you to leverage both perspectives, driving impact in HR through both innovation and structure.`;
+    }
+
+    // Contradictory trait and weakness pairs for filtering
+    const contradictoryTraits = [
+        ["Supportive", "Rigid"],
+        ["Inclusive", "Inflexible"],
+        ["Collaborative", "Orderly"],
+        ["Innovative", "Risk-Averse"],
+        ["Efficient", "Slow to adapt to change"],
+        ["People-Oriented", "Data-Driven"],
+        // Add more as needed
+    ];
+    const contradictoryWeaknesses = [
+        ["May avoid tough decisions", "May rush decisions"],
+        ["Can be overly rigid", "Can be too accommodating"],
+        ["May overlook human factors", "Can struggle with boundaries"],
+        ["Can be inflexible", "Can be distracted by socializing"],
+        // Add more as needed
+    ];
+
+    function filterContradictions(arr, contradictionPairs) {
+        const set = new Set(arr);
+        for (const [a, b] of contradictionPairs) {
+            if (set.has(a) && set.has(b)) {
+                // Remove the one that is less relevant (arbitrarily, remove b)
+                set.delete(b);
             }
         }
-        for (const type in scores) {
-            if (scores[type] === maxScore) {
-                dominantTypes.push(type);
-            }
+        return Array.from(set);
+    }
+
+    function selectHybridTraits(type1, type2) {
+        // Extract, deduplicate, and filter contradictory traits
+        const traitsA = archetypeDetails[type1].keywords.split(',').map(s => s.trim());
+        const traitsB = archetypeDetails[type2].keywords.split(',').map(s => s.trim());
+        let allTraits = Array.from(new Set([...traitsA, ...traitsB]));
+        allTraits = filterContradictions(allTraits, contradictoryTraits);
+        // Pick up to 6 traits that best represent the hybrid
+        return allTraits.slice(0, 6).join(', ');
+    }
+
+    function selectHybridWeaknesses(type1, type2) {
+        // Extract, deduplicate, and filter contradictory weaknesses
+        const weaknessesA = archetypeDetails[type1].weaknesses.split(',').map(s => s.trim());
+        const weaknessesB = archetypeDetails[type2].weaknesses.split(',').map(s => s.trim());
+        let allWeaknesses = Array.from(new Set([...weaknessesA, ...weaknessesB]));
+        allWeaknesses = filterContradictions(allWeaknesses, contradictoryWeaknesses);
+        // Pick up to 4 weaknesses that best represent the hybrid
+        return allWeaknesses.slice(0, 4).join(', ');
+    }
+
+    function calculateAndDisplayResultsText() {
+        // Sort archetypes by score (descending)
+        const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+        const [topType, topScore] = sorted[0];
+        const [secondType, secondScore] = sorted[1];
+        let isHybrid = false;
+        // 20% threshold for hybrid
+        if (secondScore > 0 && (topScore - secondScore) / topScore < 0.20) {
+            isHybrid = true;
         }
         let resultTitle = "";
         let resultDescription = "";
         let resultKeywords = "";
         let resultWeaknesses = "";
-        let resultTagline = "";
-        let resultEmoji = "";
-        if (dominantTypes.length === 1) {
-            const type = dominantTypes[0];
-            resultTitle = `${archetypeDetails[type].emoji} You are ${type}`;
-            resultTagline = `<div class=\"tagline\">${archetypeDetails[type].tagline}</div>`;
-            let desc = archetypeDetails[type].description;
-            desc = desc.replace(/^You are the? [^(]+\([^)]+\)!?\.?\s*/i, '');
-            resultDescription = desc;
-            resultKeywords = archetypeDetails[type].keywords;
-            resultWeaknesses = archetypeDetails[type].weaknesses;
-        } else if (dominantTypes.length > 1) {
-            // For hybrids, show all emojis and taglines
-            const typeNames = dominantTypes.map(t => `${archetypeDetails[t].emoji} ${t.replace(/^The /, '')}`).join(' / ');
-            resultTitle = `Hybrid: You are ${typeNames}`;
-            resultTagline = dominantTypes.map(t => `<div class=\"tagline\">${archetypeDetails[t].tagline}</div>`).join('');
-            resultDescription = "You show a strong blend of qualities from multiple archetypes! This makes you a versatile and adaptable HR professional.";
-            dominantTypes.forEach(type => {
-                let desc = archetypeDetails[type].description;
-                desc = desc.replace(/^You are the? [^(]+\([^)]+\)!?\.?\s*/i, '');
-                resultDescription += `<br><br><strong>${type.replace(/^The /, '')}:</strong> ${desc.substring(0, 100)}...`;
-            });
-            resultKeywords = dominantTypes.map(t => archetypeDetails[t].keywords).join('; ');
-            resultWeaknesses = dominantTypes.map(t => `<strong>${type.replace(/^The /, '')}:</strong> ${archetypeDetails[t].weaknesses}`).join('<br>');
+        if (isHybrid) {
+            // Combine names, emojis, no taglines
+            resultTitle = `${archetypeDetails[topType].emoji}${archetypeDetails[secondType].emoji} ${topType.replace(/^The /, '')} – ${secondType.replace(/^The /, '')}`;
+            // Generate a single, cohesive hybrid brief
+            resultDescription = generateHybridBrief(topType, secondType);
+            // Intelligently select and blend traits and weaknesses
+            resultKeywords = selectHybridTraits(topType, secondType);
+            resultWeaknesses = selectHybridWeaknesses(topType, secondType);
         } else {
-            resultTitle = "Hmm, something went wrong with the scoring.";
-            resultDescription = "We couldn't determine your archetype. Please try the quiz again.";
+            // Single dominant
+            resultTitle = `${archetypeDetails[topType].emoji} You are ${topType}`;
+            const desc = archetypeDetails[topType].description;
+            resultDescription = desc.replace(/^You are the? [^(]+\([^)]+\)!?\.?\s*/i, '');
+            resultKeywords = archetypeDetails[topType].keywords;
+            resultWeaknesses = archetypeDetails[topType].weaknesses;
         }
         // Identify secondary strengths (within 10 points of maxScore, not dominant)
         let secondaryStrengthsText = "";
+        const maxScore = topScore;
+        const dominantTypes = isHybrid ? [topType, secondType] : [topType];
         const secondaryTypes = [];
-        for (const type in scores) {
-            if (!dominantTypes.includes(type) && (maxScore - scores[type] <= 10 && scores[type] > 0 && maxScore > scores[type]) ) {
+        for (const [type, score] of Object.entries(scores)) {
+            if (!dominantTypes.includes(type) && (maxScore - score <= 10 && score > 0 && maxScore > score) ) {
                 secondaryTypes.push(type);
             }
         }
@@ -380,7 +425,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         dominantArchetypeDiv.innerHTML = `
             <h3>${resultTitle}</h3>
-            ${resultTagline}
             <p>${resultDescription}${secondaryStrengthsText ? `<span class='secondary-strengths'>${secondaryStrengthsText}</span>` : ''}</p>
             <div><span class=\"traits-label\">Key traits:</span><span class=\"traits-content\">${resultKeywords}</span></div>
             <div><span class=\"weaknesses-label\">Known weaknesses:</span><span class=\"weaknesses-content\">${resultWeaknesses}</span></div>
@@ -460,32 +504,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
-    }
-
-    function setupLinkedInShare() {
-        const shareBtn = document.getElementById('linkedin-share-btn');
-        if (!shareBtn) return;
-        // Get the dominant archetype info
-        let maxScore = -1;
-        let dominantTypes = [];
-        for (const type in scores) {
-            if (scores[type] > maxScore) maxScore = scores[type];
-        }
-        for (const type in scores) {
-            if (scores[type] === maxScore) dominantTypes.push(type);
-        }
-        // Use the first dominant type for sharing
-        const type = dominantTypes[0];
-        const emoji = archetypeDetails[type].emoji;
-        const name = type.replace(/^The /, '');
-        const tagline = archetypeDetails[type].tagline;
-        const traits = archetypeDetails[type].keywords;
-        const quizUrl = window.location.origin + window.location.pathname;
-        const shareText = `${emoji} I am ${name} – ${tagline}\nKey traits: ${traits}\nFind your HR archetype: ${quizUrl}`;
-        shareBtn.onclick = function() {
-            const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(quizUrl)}&mini=true&title=${encodeURIComponent('What Kind of HR Manager Are You?')}&summary=${encodeURIComponent(shareText)}`;
-            window.open(linkedInUrl, '_blank', 'width=600,height=600');
-        };
     }
 
     startQuizButton.addEventListener('click', () => {
