@@ -477,10 +477,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Use the first dominant type for sharing
         const type = dominantTypes[0];
         const emoji = archetypeDetails[type].emoji;
-        const name = type;
+        const name = type.replace(/^The /, '');
         const tagline = archetypeDetails[type].tagline;
+        const traits = archetypeDetails[type].keywords;
         const quizUrl = window.location.origin + window.location.pathname;
-        const shareText = `I just discovered my HR archetype: ${emoji} ${name}! ${tagline} Try the quiz: ${quizUrl}`;
+        const shareText = `${emoji} I am ${name} – ${tagline}\nKey traits: ${traits}\nFind your HR archetype: ${quizUrl}`;
         shareBtn.onclick = function() {
             const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(quizUrl)}&mini=true&title=${encodeURIComponent('What Kind of HR Manager Are You?')}&summary=${encodeURIComponent(shareText)}`;
             window.open(linkedInUrl, '_blank', 'width=600,height=600');
